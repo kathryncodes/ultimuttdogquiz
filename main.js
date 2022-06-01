@@ -18,27 +18,38 @@ const landing = document.body.querySelector(".landing")
 //Fetch the breed list once window is loaded.
 
 window.addEventListener('load', (event) => {
-    getBreeds();
+   try { getBreeds();
+   } catch(error){
+       console.log(error)
+   }
 });
 
 const getBreeds = async () => {
-    const response = await fetch("https://dog.ceo/api/breeds/list/all");
-    const data = await response.json();
+    try {
+        const response = await fetch("https://dog.ceo/api/breeds/list/all");
+        const data = await response.json();
 
-    const breeds = data.message;
-    breedList = Object.keys(breeds)
+        const breeds = data.message;
+        breedList = Object.keys(breeds)
+    } catch (error){
+        console.log(error)
+    }
 }
 
 //Randomly selects a dog image, and gets the image url and breed name
 const getDog = async () => {
-    const response = await fetch("https://dog.ceo/api/breeds/image/random");
-    const dogImg = await response.json();
+    try {
+        const response = await fetch("https://dog.ceo/api/breeds/image/random");
+        const dogImg = await response.json();
 
-    imgUrl = dogImg.message;
+        imgUrl = dogImg.message;
 
-    selectedBreed = imgUrl.slice(30, imgUrl.indexOf("/", 30));
+        selectedBreed = imgUrl.slice(30, imgUrl.indexOf("/", 30));
 
-    formatBreeds();
+        formatBreeds();
+    } catch(error){
+        console.log(error)
+    }
 }
 
 //Format breed spelling and creates array of answer options
